@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import './Form.css'
 import rect from '../images/Rectangle.png'
 
-function Form() {
+function Form({sendData}) {
     let [values, setValues] = useState({
         cardholderName: "",
         cardNumber: "",
@@ -27,7 +27,7 @@ function Form() {
 
     // Patterns for Valid data validation
     let validationPattern = {
-        cardholderName:/^([a-zA-Z]+\s?){5,}$/,
+        cardholderName:/^([a-zA-Z]+\s?){3,}$/,
         cardNumber:/^(\d{4}\s){3}\d{4}$/,
         expMonth:/^(0?[1-9]|1[012])$/,
         expYear:/^\d{2}$/,
@@ -83,6 +83,7 @@ function Form() {
         // Submitting the form data only if every field is filled and valid
         if(!reqStatus && valStatus){
             console.log(values)
+            sendData(values)
         }else{
             console.log('Invalid data')
         }
