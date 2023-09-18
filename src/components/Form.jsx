@@ -1,8 +1,17 @@
 import React, { useState } from 'react'
 import './Form.css'
 import rect from '../images/Rectangle.png'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 function Form({sendData}) {
+    const notify=()=>toast.success("Success", {
+        position:toast.POSITION.TOP_CENTER,
+        theme:'colored',
+        toastId: 'toastMessage'
+    })
+    
+
     let [values, setValues] = useState({
         cardholderName: "",
         cardNumber: "",
@@ -84,6 +93,7 @@ function Form({sendData}) {
         if(!reqStatus && valStatus){
             console.log(values)
             sendData(values)
+            notify()
         }else{
             console.log('Invalid data')
         }
@@ -177,6 +187,7 @@ function Form({sendData}) {
 
                 <button id='form-submit' type="submit">Confirm</button>
             </form>
+            <ToastContainer/>
         </div>
     )
 }
