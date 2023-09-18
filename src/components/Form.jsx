@@ -91,12 +91,13 @@ function Form({sendData}) {
 
         // Submitting the form data only if every field is filled and valid
         if(!reqStatus && valStatus){
-            console.log(values)
+            // console.log(values)
             sendData(values)
             notify()
-        }else{
-            console.log('Invalid data')
         }
+        // else{
+        //     console.log('Invalid data')
+        // }
     }
 
 
