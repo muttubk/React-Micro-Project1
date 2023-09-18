@@ -1,0 +1,92 @@
+.Form{
+    /* background-color: red; */
+    width: 100%;
+    height: 100%;
+    display: flex;
+    /* font-family: 'Inter', sans-serif; */
+}
+.Form *{
+    font-family: 'Inter', sans-serif;
+}
+.Form>img{
+    width: 30%;
+}
+.form-container{
+    width: 350px;
+    /* background-color: blue; */
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1.7rem;
+}
+.form-container>div{
+    position: relative;
+}
+.form-container label{
+    font-size: 0.8rem;
+    letter-spacing: 0.1rem;
+    color: rgba(64, 64, 64, 1);
+    font-weight: 700;
+    font-family: 'Roboto', sans-serif;
+}
+.form-container input{
+    margin-top: 0.4rem;
+    width: 100%;
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.1rem;
+    padding: 0.7rem;
+    border: 1px solid rgba(0, 0, 0, 0.13);
+    border-radius: 8px;
+    outline: none;
+}
+.form-container input::placeholder{
+    color: rgba(187, 185, 188, 1);
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.1rem;
+}
+.two-columns{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-rule: 4px double red;
+    gap: 1rem;
+}
+#exp-date{
+    gap: 0.5rem;
+}
+
+#form-submit{
+    color: #fff;
+    background-color: rgba(34, 9, 48, 1);
+    padding: 0.8rem;
+    border-radius: 8px;
+    cursor: pointer;
+    border: none;
+    letter-spacing: 0.02rem;
+    font-weight: 500;
+    font-size: 1rem;
+}
+
+.form-container small{
+    color: rgba(248, 18, 18, 1);
+    font-weight: 400;
+    font-size: 12px;
+    display: block;
+    position: absolute;
+    bottom: -15px;
+}
+
+input~small{
+    display: none;
+}
+input:invalid~small{
+    display: block;
+    color: red;
+    position: absolute;
+    /* bottom: -17px; */
+}
+input:invalid + span {
+    color: red;
+    font-weight: bold;
+}
