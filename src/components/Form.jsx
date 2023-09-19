@@ -58,6 +58,16 @@ function Form({sendData}) {
         }
     }
 
+    // For status of input type is required data type or not
+    let onlyAllowedDefault={
+        cardholderName:false,
+        cardNumber:false,
+        expMonth:false,
+        expYear:false,
+        cvc:false
+    }
+    let [onlyAllowed, setOnlyAllowed]=useState(onlyAllowedDefault)
+
     // Function for handling change of input fields
     const changeHandler = (e) => {
         let {name} = e.target
@@ -70,6 +80,10 @@ function Form({sendData}) {
 
             let {value} = e.target
             setValues({ ...values, [name]: value })
+            setOnlyAllowed(onlyAllowedDefault)
+        }
+        else{
+            setOnlyAllowed({...onlyAllowed, [name]:true})
         }
     }
 
@@ -98,6 +112,8 @@ function Form({sendData}) {
         // else{
         //     console.log('Invalid data')
         // }
+        
+        setOnlyAllowed(onlyAllowedDefault)
     }
 
 
@@ -114,8 +130,11 @@ function Form({sendData}) {
                         name="cardholderName"
                         id="cardholder-name"
                         placeholder='e.g. Jane Appleseed'
+                        onBlur={()=>setOnlyAllowed(onlyAllowedDefault)}
                     />
-                        {req===true && values.cardholderName.length===0
+                        {onlyAllowed.cardholderName===true
+                            ?<small>Only characters allowed</small>
+                            :req===true && values.cardholderName.length===0
                             ?<small>Cardholder name required</small>
                             :dataStatus==='invalid' && values.cardholderName.length<5
                             ?<small>Minimum length required is 5</small>
@@ -131,8 +150,11 @@ function Form({sendData}) {
                         name="cardNumber"
                         id="card-number"
                         placeholder='e.g. 1234 5678 9123 0000'
+                        onBlur={()=>setOnlyAllowed(onlyAllowedDefault)}
                     />
-                        {req===true && values.cardNumber.length===0
+                        {onlyAllowed.cardNumber===true
+                            ?<small>Only numbers allowed</small>
+                            :req===true && values.cardNumber.length===0
                             ?<small>Card number required</small>
                             :dataStatus==='invalid' && values.cardNumber.length<19
                             ?<small>Enter valid card number</small>
@@ -141,7 +163,7 @@ function Form({sendData}) {
                 </div>
 
                 <div className='two-columns'>
-                    <div>
+                    <div onBlur={()=>setOnlyAllowed(onlyAllowedDefault)}>
                         <label htmlFor="exp-month">EXP. DATE (MM/YY)</label>
                         <div className='two-columns' id='exp-date'>
                             <input 
@@ -159,7 +181,9 @@ function Form({sendData}) {
                                 placeholder='YY'
                             />
                         </div>
-                        {req===true && (values.expMonth.length===0||values.expYear.length===0)
+                        {onlyAllowed.expMonth===true || onlyAllowed.expYear===true
+                            ?<small>Only numbers allowed</small>
+                            :req===true && (values.expMonth.length===0||values.expYear.length===0)
                             ?<small>Expiry date required</small>
                             :dataStatus==='invalid' && (values.expMonth<1||values.expMonth>12)
                             ?<small>Enter valid month</small>
@@ -176,8 +200,11 @@ function Form({sendData}) {
                             name="cvc"
                             id="cvc"
                             placeholder='e.g. 123'
+                            onBlur={()=>setOnlyAllowed(onlyAllowedDefault)}
                         />
-                        {req===true && values.cvc.length===0
+                        {onlyAllowed.cvc===true
+                            ?<small>Only numbers allowed</small>
+                            :req===true && values.cvc.length===0
                             ?<small>CVC required</small>
                             :dataStatus==='invalid' && values.cvc.length<3
                             ?<small>Enter valid CVC</small>
